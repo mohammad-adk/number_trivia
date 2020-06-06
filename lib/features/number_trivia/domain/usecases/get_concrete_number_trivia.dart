@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:numbertrivia/core/error/failures.dart';
 import 'package:numbertrivia/features/number_trivia/domain/entities/number_trivia.dart';
@@ -9,7 +10,16 @@ class GetConcreteNumberTrivia {
 
   GetConcreteNumberTrivia(this.repository);
 
-  Future<Either<Failure, NumberTrivia>> execute({@required number}) async {
-    return await repository.getConcreteNumberTrivia(number);
+  Future<Either<Failure, NumberTrivia>> call(Params params) async {
+    return await repository.getConcreteNumberTrivia(params.number);
   }
+}
+
+class Params extends Equatable{
+  final int number;
+
+  Params({@required this.number});
+
+  @override
+  List<Object> get props => [number];
 }
